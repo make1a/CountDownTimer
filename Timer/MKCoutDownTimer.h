@@ -26,4 +26,15 @@ typedef void(^timerBlock)(int second);
 +(MKCoutDownTimer *)timerWithCountdownTime:(NSTimeInterval)sec rate:(float)rate executeBlock:(timerBlock)block endBlock:(endBlock)endBlock;
 
 - (void)invalidate;
+
+
+
+/**
+ 计时
+
+ @param rate 秒
+ @param block block description
+ @return return value description
+ */
++(MKCoutDownTimer *)timerWithCountWithRate:(float)rate executeBlock:(timerBlock)block;
 @end

@@ -10,6 +10,7 @@
 #import "MKCoutDownTimer.h"
 @interface ViewController ()
 @property (nonatomic, strong)dispatch_source_t time;
+@property (nonatomic,strong)MKCoutDownTimer * t;
 @end
 
 @implementation ViewController
@@ -41,7 +42,7 @@
 //
 ////                dispatch_cancel(self.time);
     
-    [self countDown];
+    [self countTime];
     
     
 }
@@ -56,6 +57,15 @@
     } endBlock:^{
         NSLog(@"结束");
     }];
+}
+
+- (void)countTime{
+    
+  self.t = [MKCoutDownTimer timerWithCountWithRate:1.f executeBlock:^(int second) {
+        NSLog(@"计时：%d",second);
+    }];
+    
+    
 }
 
 - (void)openCountdown {

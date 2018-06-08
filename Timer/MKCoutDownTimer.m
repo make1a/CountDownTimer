@@ -50,6 +50,7 @@
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 
+                
                 block(interval);
                 
             });
@@ -70,6 +71,26 @@
     return gcdTimer;
 }
 
+//计时
++(MKCoutDownTimer *)timerWithCountWithRate:(float)rate executeBlock:(timerBlock)block {
+    
+    MKCoutDownTimer *gcdTimer = [[MKCoutDownTimer alloc]init];
+    
+    dispatch_source_set_timer(gcdTimer.timer, dispatch_walltime(NULL, 0), rate * NSEC_PER_SEC, 0);
+    
+    NSTimeInterval beginTime = [NSDate date].timeIntervalSince1970;
+    
+    dispatch_source_set_event_handler(gcdTimer.timer, ^{
+        int interval =  [NSDate date].timeIntervalSince1970 - beginTime;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            block(interval);
+        });
+    });
+    
+    dispatch_resume(gcdTimer.timer);
+    
+    return gcdTimer;
+}
 
 //销毁定时器
 - (void)invalidate{
